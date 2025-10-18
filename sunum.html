@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Proje Sunumu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        body {
+            background: #0a0a16;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        .slide {
+            min-height: 100vh;
+            padding: 30px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            display: none;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: rgba(10, 10, 22, 0.85);
+            background-blend-mode: overlay;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            display: flex;
+        }
+        
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            color: #00f7ff;
+            text-shadow: 0 0 20px rgba(0, 247, 255, 0.6);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            margin: 20px 0 30px;
+            color: #00e1ff;
+            text-shadow: 0 0 15px rgba(0, 225, 255, 0.5);
+            padding: 10px 30px;
+            background: rgba(0, 180, 216, 0.15);
+            border-radius: 10px;
+            display: inline-block;
+            border: 1px solid rgba(0, 225, 255, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        p {
+            font-size: 1.3em;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 25px;
+            color: #e0e0e0;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px 25px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+        
+        ul {
+            text-align: left;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        li {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            list-style-type: none;
+            padding: 8px 15px 8px 40px;
+            position: relative;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            margin-bottom: 10px;
+            color: #f0f0f0;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+        
+        li:hover {
+            background: rgba(0, 180, 216, 0.2);
+            transform: translateX(5px);
+        }
+        
+        li:before {
+            content: "•";
+            color: #00b4d8;
+            font-size: 1.5em;
+            position: absolute;
+            left: 0;
+            top: -3px;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .tech-card {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 225, 255, 0.2);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+        }
+        
+        .tech-card:hover {
+            transform: translateY(-5px);
+            border-color: #00e1ff;
+            box-shadow: 0 0 20px rgba(0, 225, 255, 0.3);
+        }
+        
+        .tech-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tech-card h3 {
+            color: #00b4d8;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #00b4d8, #0096c7);
+            color: white;
+            padding: 12px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1em;
+            margin: 15px;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover:before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(45deg, #0096c7, #00b4d8);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 180, 216, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #00e1ff;
+            color: #00e1ff;
+            box-shadow: 0 0 15px rgba(0, 225, 255, 0.3);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(0, 225, 255, 0.1);
+            color: #00e1ff;
+            border-color: #00e1ff;
+            box-shadow: 0 0 25px rgba(0, 225, 255, 0.5);
+        }
+        
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            z-index: 100;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            margin: 0 auto;
+            width: fit-content;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-dot:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #00e1ff;
+            transform: scale(0);
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-dot.active:before {
+            transform: scale(1);
+            box-shadow: 0 0 10px #00e1ff;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            max-width: 800px;
+            margin: 20px auto;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            border: 1px solid rgba(0, 225, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            color: #e0e0e0;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        
+        .highlight {
+            color: #00e1ff;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 225, 255, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            h2 {
+                font-size: 2em;
+            }
+            
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slayt 1: Başlık -->
+    <div class="slide active" id="slide1" style="background-image: url('images/cyberpunk-city2.gif');">
+        <h1>TRINITY</h1>
+        <p>Yaratıcı Hikaye Oluşturma Platformu</p>
+        <div style="margin-top: 50px;">
+            <a href="#" class="btn" onclick="nextSlide()">Başla</a>
+        </div>
+    </div>
+
+    <!-- Slayt 2: Proje Özeti -->
+    <div class="slide" id="slide2" style="background-image: url('images/cyberpunk-night2.gif');">
+        <h2>Proje Özeti</h2>
+        <p>Trinity, kullanıcıların rastgele üretilen kelimeleri kullanarak yaratıcı hikayeler oluşturabileceği interaktif bir web uygulamasıdır.</p>
+        
+        <div class="tech-grid" style="margin-top: 50px;">
+            <div class="tech-card">
+                <h3>🎯 Amaç</h3>
+                <p>Kullanıcıların yaratıcılıklarını geliştirmelerine ve eğlenceli vakit geçirmelerine olanak sağlamak</p>
+            </div>
+            <div class="tech-card">
+                <h3>🎯 Hedef Kitle</h3>
+                <p>Hikaye yazmayı seven, yaratıcılığını geliştirmek isteyen herkes</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slayt 3: Teknoloji Yığını -->
+    <div class="slide" id="slide3" style="background-image: url('images/cyberpunk-day2.gif');">
+        <h2>Teknoloji Yığını</h2>
+        
+        <div class="tech-grid">
+            <div class="tech-card">
+                <h3>🌐 Frontend</h3>
+                <ul>
+                    <li>HTML5</li>
+                    <li>CSS3</li>
+                    <li>JavaScript</li>
+                </ul>
+            </div>
+            
+            <div class="tech-card">
+                <h3>⚙️ Backend</h3>
+                <ul>
+                    <li>Node.js</li>
+                    <li>Express.js</li>
+                </ul>
+            </div>
+            
+            <div class="tech-card">
+                <h3>🔌 API Entegrasyonu</h3>
+                <ul>
+                    <li>OpenAI API</li>
+                    <li>CORS Yönetimi</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slayt 4: Temel Özellikler -->
+    <div class="slide" id="slide4" style="background-image: url('images/cyberpunk-city4.gif');">
+        <h2>Temel Özellikler</h2>
+        
+        <div class="tech-grid">
+            <div class="tech-card">
+                <h3>🎨 Kullanıcı Arayüzü</h3>
+                <ul>
+                    <li>Modern ve şık tasarım</li>
+                    <li>Duyarlı (responsive) yapı</li>
+                    <li>Kullanıcı dostu arayüz</li>
+                </ul>
+            </div>
+            
+            <div class="tech-card">
+                <h3>⚡ İşlevsellik</h3>
+                <ul>
+                    <li>Rastgele kelime üretimi</li>
+                    <li>Zamanlayıcılı oyun mekaniği</li>
+                    <li>Hikaye oluşturma ve kaydetme</li>
+                </ul>
+            </div>
+            
+            <div class="tech-card">
+                <h3>🚀 Gelişmiş Özellikler</h3>
+                <ul>
+                    <li>OpenAI entegrasyonu</li>
+                    <li>Gerçek zamanlı geri bildirim</li>
+                    <li>Çevrimiçi paylaşım</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slayt 5: Proje Yapısı -->
+    <div class="slide" id="slide5" style="background-image: url('images/cyberpunk-city5.gif');">
+        <h2>Proje Yapısı</h2>
+        
+        <div class="code-block">
+            <pre>Trinity/
+├── <span class="highlight">app.js</span>         # Ana uygulama dosyası
+├── server.js      # Sunucu yapılandırması
+├── index.html     # Ana sayfa
+├── style.css      # Stil dosyası
+├── package.json   # Bağımlılıklar
+└── .env          # Ortam değişkenleri</pre>
+        </div>
+        
+        <div style="margin-top: 30px;">
+            <p>Uygulama, modern bir mimari yapıyla geliştirilmiştir ve kolayca genişletilebilir.</p>
+        </div>
+    </div>
+
+    <!-- Slayt 6: Kurulum -->
+    <div class="slide" id="slide6" style="background-image: url('images/cyberpunk-day4.gif');">
+        <h2>Kurulum ve Çalıştırma</h2>
+        
+        <div class="code-block">
+            <pre># Gerekli bağımlılıkları yükleyin
+npm install
+
+# Ortam değişkenlerini ayarlayın
+echo "PORT=3000" > .env
+echo "OPENAI_API_KEY=your_api_key_here" >> .env
+
+# Uygulamayı başlatın
+node app.js</pre>
+        </div>
+        
+        <div style="margin-top: 30px;">
+            <p>Uygulama <span class="highlight">http://localhost:3000</span> adresinde başlatılacaktır.</p>
+        </div>
+    </div>
+
+    <!-- Slayt 7: Kullanım Senaryoları -->
+    <div class="slide" id="slide7" style="background-image: url('images/cyberpunk-day.gif');">
+        <h2>Kullanım Senaryoları</h2>
+        
+        <div class="tech-grid">
+            <div class="tech-card">
+                <h3>1️⃣ Başlangıç</h3>
+                <p>Kullanıcı uygulamayı başlatır ve "Başla" butonuna tıklar.</p>
+            </div>
+            
+            <div class="tech-card">
+                <h3>2️⃣ Kelime Seçimi</h3>
+                <p>Sistem rastgele 3 kelime üretir ve kullanıcıya gösterir.</p>
+            </div>
+            
+            <div class="tech-card">
+                <h3>3️⃣ Hikaye Yazımı</h3>
+                <p>Kullanıcı verilen süre içinde bu kelimeleri kullanarak bir hikaye yazar.</p>
+            </div>
+            
+            <div class="tech-card">
+                <h3>4️⃣ Paylaşım</h3>
+                <p>Oluşturulan hikaye kaydedilir ve istenirse paylaşılabilir.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slayt 8: Gelecek Geliştirmeler -->
+    <div class="slide" id="slide8" style="background-image: url('images/cyberpunk-night.gif');">
+        <h2>Gelecek Geliştirmeler</h2>
+        
+        <div class="tech-grid">
+            <div class="tech-card">
+                <h3>👥 Kullanıcı Hesapları</h3>
+                <p>Kullanıcıların hesaplarını oluşturup hikayelerini kaydedebilecekleri bir sistem.</p>
+            </div>
+            
+            <div class="tech-card">
+                <h3>🏆 Puanlama Sistemi</h3>
+                <p>Hikayelerin oylanabileceği ve derecelendirilebileceği bir sistem.</p>
+            </div>
+            
+            <div class="tech-card">
+                <h3>📱 Mobil Uygulama</h3>
+                <p>iOS ve Android için yerel mobil uygulama geliştirilmesi.</p>
+            </div>
+            
+            <div class="tech-card">
+                <h3>🌍 Topluluk Özellikleri</h3>
+                <p>Kullanıcıların birbirlerinin hikayelerini görebileceği ve yorum yapabileceği bir topluluk alanı.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slayt 9: Sonuç -->
+    <div class="slide" id="slide9" style="background-image: url('images/cyberpunk-city.gif');">
+        <h1>Teşekkürler!</h1>
+        <p>Trinity projesini incelemek için hazırsınız.</p>
+        
+        <div style="margin-top: 50px;">
+            <a href="index.html" class="btn">Uygulamayı Görüntüle</a>
+            <a href="#" class="btn btn-outline" onclick="restartPresentation()">Sunumu Baştan Başlat</a>
+        </div>
+        
+        <div style="margin-top: 50px; font-size: 0.9em; opacity: 0.7;">
+            <p>Geliştirici: Uğur Koray Göydağ</p>
+            <p>GitHub: <a href="https://github.com/UKorayG/Trinity-New-app-2025-Sui" style="color: #00b4d8; text-decoration: none;" target="_blank">github.com/UKorayG</a></p>
+        </div>
+    </div>
+
+    <!-- Navigasyon Noktaları -->
+    <div class="navigation">
+        <div class="nav-dot active" onclick="goToSlide(1)"></div>
+        <div class="nav-dot" onclick="goToSlide(2)"></div>
+        <div class="nav-dot" onclick="goToSlide(3)"></div>
+        <div class="nav-dot" onclick="goToSlide(4)"></div>
+        <div class="nav-dot" onclick="goToSlide(5)"></div>
+        <div class="nav-dot" onclick="goToSlide(6)"></div>
+        <div class="nav-dot" onclick="goToSlide(7)"></div>
+        <div class="nav-dot" onclick="goToSlide(8)"></div>
+        <div class="nav-dot" onclick="goToSlide(9)"></div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 9;
+        
+        // Klavye kontrolleri
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+        
+        // Sonraki slayta geç
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                goToSlide(currentSlide + 1);
+            }
+        }
+        
+        // Önceki slayta dön
+        function prevSlide() {
+            if (currentSlide > 1) {
+                goToSlide(currentSlide - 1);
+            }
+        }
+        
+        // Belirli bir slayta git
+        function goToSlide(slideNumber) {
+            // Mevcut slaytı gizle
+            document.getElementById('slide' + currentSlide).classList.remove('active');
+            document.querySelectorAll('.nav-dot')[currentSlide-1].classList.remove('active');
+            
+            // Yeni slaytı göster
+            currentSlide = slideNumber;
+            document.getElementById('slide' + currentSlide).classList.add('active');
+            document.querySelectorAll('.nav-dot')[currentSlide-1].classList.add('active');
+            
+            // Sayfayı en üste kaydır
+            window.scrollTo(0, 0);
+        }
+        
+        // Sunumu baştan başlat
+        function restartPresentation() {
+            goToSlide(1);
+        }
+        
+        // Dokunmatik cihazlar için kaydırma desteği
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+        
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                prevSlide();
+            }
+        }
+    </script>
+</body>
+</html>
