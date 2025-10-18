@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@400;700&family=VT323&display=swap');
+
+:root {
+  --neon-pink: #ff007f;
+  --neon-cyan: #00ffc8;
+  --dark-bg: #0d011f;
+  --light-bg: #506fa3;
+}
+
+body {
+  font-family: 'Roboto Mono', monospace;
+  background-color: var(--dark-bg);
+  color: var(--neon-cyan);
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  background: var(--dark-bg) url('/images/cyberpunk-night.gif') no-repeat center center fixed;
+  background-size: cover;
+  transition: background 1s ease-in-out;
+}
+
+body.day-theme {
+  background: var(--light-bg) url('/images/cyberpunk-day.gif') no-repeat center center fixed;
+  background-size: cover;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://www.transparenttextures.com/patterns/grid-of-squares.png') repeat;
+  opacity: 0.1;
+  z-index: -1;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  background-color: rgba(13, 1, 31, 0.85);
+  backdrop-filter: blur(5px);
+  padding: 30px;
+  border-radius: 10px;
+  border: 2px solid var(--neon-pink);
+  box-shadow: 0 0 20px var(--neon-pink);
+  z-index: 1;
+}
+
+.logo {
+  font-family: 'VT323', monospace;
+  font-size: 3em;
+  font-weight: bold;
+  color: var(--neon-pink);
+  text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink);
+  margin-bottom: 20px;
+  letter-spacing: 8px;
+}
+
+.time-display {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5em;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px var(--neon-cyan);
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+}
+
+.words-container {
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.word-input {
+  font-family: 'VT323', monospace;
+  font-size: 2em;
+  width: 120px;
+  text-align: center;
+  background-color: transparent;
+  color: var(--neon-pink);
+  padding: 8px 15px;
+  border: 2px solid var(--neon-pink);
+  border-radius: 0;
+  text-shadow: 0 0 5px var(--neon-pink);
+  box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink) inset;
+  transition: all 0.3s ease-in-out;
+}
+
+.word-input:focus {
+  outline: none;
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 15px var(--neon-cyan), 0 0 25px var(--neon-cyan) inset;
+}
+
+.generate-button {
+  padding: 12px 25px;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 25px;
+  background-color: var(--neon-pink);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px var(--neon-pink);
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.generate-button:hover {
+  background-color: #ff3399;
+  box-shadow: 0 0 20px #ff3399;
+  transform: translateY(-2px);
+}
+
+.generate-button:disabled {
+  background-color: #7a003f;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.story-box {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--neon-cyan);
+  border-radius: 5px;
+  color: var(--neon-cyan);
+  text-align: left;
+  font-size: 1.1em;
+  line-height: 1.6;
+  box-shadow: 0 0 10px var(--neon-cyan) inset;
+  position: relative;
+  overflow: hidden;
+}
+
+.story-box::before {
+  content: '';
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.error-message {
+  color: #ff4d4d;
+  margin-top: 10px;
+  text-shadow: 0 0 5px #ff4d4d;
+  font-family: 'Roboto Mono', monospace;
+}
+
+/* Glitch effect for loading state */
+@keyframes glitch {
+  0% { text-shadow: 0 0 10px var(--neon-pink); }
+  20% { text-shadow: 2px 2px 0 var(--neon-cyan); }
+  40% { text-shadow: -2px -2px 0 var(--neon-pink); }
+  60% { text-shadow: 0 0 10px var(--neon-pink); }
+  80% { text-shadow: 3px -3px 0 var(--neon-cyan); }
+  100% { text-shadow: 0 0 10px var(--neon-pink); }
+}
+
+.loading {
+  animation: glitch 1s infinite;
+  color: var(--neon-pink);
+  font-size: 1.2em;
+  margin-top: 20px;
+}

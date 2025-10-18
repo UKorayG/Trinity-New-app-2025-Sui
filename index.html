@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COSMIC ORACLE</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="screen active" id="game-screen">
+        <div class="logo">COSMIC ORACLE</div>
+        <div class="time-display" id="time-display">12:00</div>
+        <div class="words-container">
+            <div class="word" id="word1">WORD1</div>
+            <div class="word" id="word2">WORD2</div>
+            <div class="word" id="word3">WORD3</div>
+        </div>
+        <input type="text" id="story-input" class="story-input" placeholder="Type your story here...">
+        <button id="start-button" class="action-button">START</button>
+        <button id="submit-button" class="action-button hidden">SUBMIT</button>
+        <div id="progress-bar-container">
+            <div id="progress-bar"></div>
+        </div>
+        <div class="timer" id="timer"></div>
+        <button id="view-feed-button" class="secondary-button">VIEW FEEDS</button>
+    </div>
+
+    <div class="screen hidden" id="map-screen">
+        <div class="logo">FEEDS</div>
+        <div id="universe-map"></div>
+        <button id="back-to-game-button" class="secondary-button">BACK</button>
+    </div>
+
+    <div id="story-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="modal-title">Story Title</h3>
+            <p id="modal-story-text">This is the full story...</p>
+            <div class="modal-reward-icon"></div>
+        </div>
+    </div>
+
+    <div id="ghost-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="ghost-title">ALERT!</h3>
+            <p id="ghost-message">Something is wrong with the code.</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
